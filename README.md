@@ -1,4 +1,7 @@
-// ✅ todo:
-
-1. publish on npm the vibes library
-2. publish on netlify the storybook with all the stories and the examples of the code
+To run locally (this will be changed really soon)
+```bash
+npm install
+npm run build
+npm run publish:yalc
+npm run storybook
+```
