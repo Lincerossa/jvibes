@@ -11,12 +11,14 @@ const Recorder = () => {
 
   return (
    <S.Recorder>
-    <Space>
-      <Button onClick={startRecording}>start</Button>
-      <Button type="danger" onClick={stopRecording}>stop</Button>
-    </Space>
+    <S.CtaWrapper>
+      <Space>
+        <Button loading={!!isRecording} onClick={startRecording}>record</Button>
+        <Button type="danger" onClick={stopRecording}>stop</Button>
+      </Space>
+    </S.CtaWrapper>
     {
-      tracks?.map(track => <div>i</div>)
+      tracks?.map(track => <S.Audio controls src={track.blobURL}>Your browser does not support the <code>audio</code> element. </S.Audio>)
     }
    </S.Recorder>
   )
