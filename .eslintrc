@@ -1,5 +1,5 @@
 {
-  "extends": ["prettier"],
+  "extends": ["prettier", "eslint-plugin-react", "eslint-plugin-react"],
   "rules": {
     "semi": ["warn", "never"],
     "comma-dangle": ["warn", "never"],
