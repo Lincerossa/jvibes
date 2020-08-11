@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState} from 'react';
 import PropTypes from 'prop-types';
-import Jvibes, { useRecord } from 'vibes'
+import jvibes from 'jvibes'
 import * as S from './styles'
 
 
-console.log({useRecord})
 const Basic = () => {
+
+  const [status, setStatus] = useState(null)
+  const { tracks, isRecording } = jvibes(status)
+
   return (
    <S.Basic>
-    <Jvibes />
-
+    <button onClick={() => setStatus("start")}>start</button>
+    <button onClick={() => setStatus("stop")}>stop</button>
    </S.Basic>
   )
 }
