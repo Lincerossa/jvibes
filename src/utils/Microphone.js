@@ -19,13 +19,8 @@ navigator.getUserMedia = (navigator.getUserMedia
                           || navigator.msGetUserMedia)
 
 class Microphone {
-  constructor(onStart, onStop, onSave, onData, options, soundOptions) {
-    const {
-      echoCancellation,
-      autoGainControl,
-      noiseSuppression,
-      channelCount
-    } = soundOptions || {}
+  constructor(onStart, onStop, onSave, onData, options) {
+
 
     onStartCallback = onStart
     onStopCallback = onStop
@@ -35,10 +30,9 @@ class Microphone {
 
     constraints = {
       audio: {
-        echoCancellation,
-        autoGainControl,
-        noiseSuppression,
-        channelCount
+        echoCancellation: false,
+        autoGainControl: false,
+        noiseSuppression: false,
       },
       video: false
     }
@@ -70,7 +64,7 @@ class Microphone {
         .then((str) => {
           stream = str
 
-          if (MediaRecorder.isTypeSupported(mediaOptions.mimeType)) {
+          if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
             mediaRecorder = new MediaRecorder(str, mediaOptions)
           } else {
             mediaRecorder = new MediaRecorder(str)
@@ -113,8 +107,7 @@ class Microphone {
 
   onStop() {
 
-    console.log("onStop")
-    const blob = new Blob(chunks, { type: mediaOptions.mimeType })
+    const blob = new Blob(chunks, { type: 'audio/webm;codecs=opus' })
     chunks = []
 
     const blobObject = {

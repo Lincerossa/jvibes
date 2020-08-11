@@ -1,9 +1,7 @@
 
-import React, { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 import Microphone from './utils/Microphone'
-import Player from './utils/Player'
-
 
 export default () => {
 
@@ -34,6 +32,6 @@ export default () => {
     tracks,
     isRecording,
     startRecording,
-    stopRecording
+    stopRecording,
   }
 }
