@@ -5,7 +5,7 @@ import Microphone from './utils/Microphone'
 import Player from './utils/Player'
 
 
-export default (status) => {
+export default () => {
 
   const [ tracks, setTracks ] = useState([])
   const [ isRecording, setIsRecording] = useState(null)
@@ -23,16 +23,17 @@ export default (status) => {
     setMicrophoneIstance(MicrophoneIstance)
   }, [onStop])
 
-
-  useEffect(() => {
-    if(!MicrophoneIstance) return 
-    if(status === "start") MicrophoneIstance.startRecording()
-    if(status === "stop") MicrophoneIstance.stopRecording()
-  }, [status, MicrophoneIstance])
-
+  function startRecording(){
+    MicrophoneIstance.startRecording()
+  }
+  function stopRecording(){
+    MicrophoneIstance.stopRecording()
+  }
 
   return {
     tracks,
-    isRecording
+    isRecording,
+    startRecording,
+    stopRecording
   }
 }
