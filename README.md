@@ -1,6 +1,4 @@
-<h1 align="center">
-  🎼 [jvibes](https://jvibes.netlify.app)
-</h1>
+## [jvibes](https://jvibes.netlify.app)
 
 ## 👋🏻 Quick Start
 github repo
