@@ -1,4 +1,4 @@
 import styled from 'styled-components'
 
 
-export const Basic = styled.div``
+export const Recorder = styled.div``
