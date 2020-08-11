@@ -1,0 +1,13 @@
+{
+  "extends": ["prettier"],
+  "rules": {
+    "semi": ["warn", "never"],
+    "comma-dangle": ["warn", "never"],
+    "quotes": ["warn", "single"],
+    "indent": ["warn", 2]
+  },
+  "env": {
+    "jest": true,
+    "browser": true
+  }
+}

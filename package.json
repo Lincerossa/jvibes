@@ -1,0 +1,83 @@
+{
+  "name": "vibes",
+  "version": "0.0.1",
+  "homepage": ".",
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.1.1",
+    "vibes": "file:.yalc/vibes"
+  },
+  "main": "dist",
+  "scripts": {
+    "release": "semantic-release --no-ci",
+    "pretty-quick": "pretty-quick - staged",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "publish:yalc": "yalc publish",
+    "build": "rollup -c"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint",
+      "npm run pretty-quick"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/git"
+    ],
+    "branches": [
+      "master"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "@rollup/plugin-babel": "^5.1.0",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/release-notes-generator": "^9.0.1",
+    "@storybook/addon-actions": "^6.0.1",
+    "@storybook/addon-essentials": "^6.0.1",
+    "@storybook/addon-links": "^6.0.1",
+    "@storybook/react": "^6.0.1",
+    "babel-plugin-styled-components": "^1.11.1",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-react": "^7.20.3",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
+    "react-is": "^16.13.1",
+    "rollup": "^2.23.1",
+    "semantic-release": "^17.1.1"
+  }
+}
