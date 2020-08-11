@@ -93,6 +93,6 @@ build
 # DynamoDB Local files
 .dynamodb/
 
-
+.yalc
 package-lock.json
 # End of https://www.gitignore.io/api/node
