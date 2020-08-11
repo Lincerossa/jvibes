@@ -76,7 +76,6 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-react": "^7.20.3",
     "husky": "^4.2.5",
-    "jvibes": "file:.yalc/jvibes",
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
