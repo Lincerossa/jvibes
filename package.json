@@ -1,12 +1,12 @@
 {
-  "name": "vibes",
+  "name": "jvibes",
   "version": "0.0.1",
   "homepage": ".",
   "dependencies": {
+    "jvibes": "file:.yalc/jvibes",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "styled-components": "^5.1.1",
-    "vibes": "file:.yalc/vibes"
+    "styled-components": "^5.1.1"
   },
   "main": "dist",
   "scripts": {
@@ -14,7 +14,7 @@
     "pretty-quick": "pretty-quick - staged",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "publish:yalc": "yalc publish",
+    "publish:yalc": "yalc publish && yalc add jvibes",
     "build": "rollup -c"
   },
   "husky": {
@@ -56,6 +56,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
+    "@babel/plugin-syntax-class-properties": "^7.10.4",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
     "@rollup/plugin-babel": "^5.1.0",
