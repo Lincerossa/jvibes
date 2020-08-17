@@ -19,7 +19,7 @@ navigator.getUserMedia = (navigator.getUserMedia
                           || navigator.msGetUserMedia)
 
 class Microphone {
-  constructor(onStart, onStop, onSave, onData, options) {
+  constructor({onStart, onStop, onSave, onData, options}) {
 
 
     onStartCallback = onStart

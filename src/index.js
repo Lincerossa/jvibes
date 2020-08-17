@@ -1,30 +1,25 @@
-
 import { useState, useEffect, useCallback } from 'react'
-
 import Microphone from './utils/Microphone'
 
 export default () => {
-
-  const [ tracks, setTracks ] = useState([])
-  const [ isRecording, setIsRecording] = useState(null)
-  const [ MicrophoneIstance, setMicrophoneIstance ] = useState(null)
-
-  const onStart = () => setIsRecording(true)
+  const [tracks, setTracks] = useState([])
+  const [isRecording, setIsRecording] = useState(null)
+  const [MicrophoneIstance, setMicrophoneIstance] = useState(null)
 
   const onStop = useCallback((track) => {
-    setTracks([...tracks, track])
+    setTracks((e) => [...e, track])
     setIsRecording(false)
-  }, [tracks, setTracks, setIsRecording])
+  }, [setTracks, setIsRecording])
 
-  useEffect(()=> {
-    const MicrophoneIstance = new Microphone(onStart, onStop)
-    setMicrophoneIstance(MicrophoneIstance)
-  }, [onStop])
+  useEffect(() => {
+    const Instance = new Microphone({ onStart: () => setIsRecording(true), onStop })
+    setMicrophoneIstance(Instance)
+  }, [onStop, setIsRecording])
 
-  function startRecording(){
+  function startRecording() {
     MicrophoneIstance.startRecording()
   }
-  function stopRecording(){
+  function stopRecording() {
     MicrophoneIstance.stopRecording()
   }
 
