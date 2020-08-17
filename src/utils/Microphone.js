@@ -3,81 +3,72 @@ import AudioContext from './context'
 let analyser
 let audioCtx
 let mediaRecorder
-let chunks = []
-let startTime
 let stream
-let mediaOptions
-let onStartCallback
-let onStopCallback
-let onSaveCallback
-let onDataCallback
-let constraints
 
 navigator.getUserMedia = (navigator.getUserMedia
                           || navigator.webkitGetUserMedia
                           || navigator.mozGetUserMedia
                           || navigator.msGetUserMedia)
-
 class Microphone {
-  constructor({onStart, onStop, onSave, onData, options}) {
-
-
-    onStartCallback = onStart
-    onStopCallback = onStop
-    onSaveCallback = onSave
-    onDataCallback = onData
-    mediaOptions = options || {}
-
-    constraints = {
-      audio: {
-        echoCancellation: false,
-        autoGainControl: false,
-        noiseSuppression: false,
-      },
-      video: false
-    }
+  constructor({ onStart, onStop }) {
+    this.onStart = onStart
+    this.onStop = onStop
   }
 
-  startRecording=() => {
-    startTime = Date.now()
+  startRecording() {
+    const startTime = Date.now()
 
     if (mediaRecorder) {
-      if (audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume()
-      }
+      if (audioCtx?.state === 'suspended') audioCtx.resume()
 
-      if (mediaRecorder && mediaRecorder.state === 'paused') {
-        mediaRecorder.resume()
-        return
-      }
-
-      if (audioCtx && mediaRecorder && mediaRecorder.state === 'inactive') {
+      if (audioCtx && mediaRecorder?.state === 'inactive') {
         mediaRecorder.start(10)
         const source = audioCtx.createMediaStreamSource(stream)
         source.connect(analyser)
-        if (onStartCallback) { onStartCallback() }
+        if (this.onStart) this.onStart()
       }
-    } else if (navigator.mediaDevices) {
-      console.log('getUserMedia supported.')
 
-      navigator.mediaDevices.getUserMedia(constraints)
+      if (mediaRecorder?.state === 'paused') mediaRecorder.resume()
+
+    }
+
+    if (navigator.mediaDevices) {
+      navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: false,
+          autoGainControl: false,
+          noiseSuppression: false,
+        },
+        video: false,
+      })
         .then((str) => {
+          let chunks = []
           stream = str
 
           if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
-            mediaRecorder = new MediaRecorder(str, mediaOptions)
+            mediaRecorder = new MediaRecorder(str)
           } else {
             mediaRecorder = new MediaRecorder(str)
           }
 
-          if (onStartCallback) { onStartCallback() }
+          if (this.onStart) this.onStart()
 
-          mediaRecorder.onstop = this.onStop
+          mediaRecorder.onstop = () => {
+            const { onStop } = this
+            const blob = new Blob(chunks, { type: 'audio/webm;codecs=opus' })
+            chunks = []
+
+            const blobObject = {
+              blob,
+              startTime,
+              stopTime: Date.now(),
+              blobURL: window.URL.createObjectURL(blob),
+            }
+
+            if (onStop) onStop(blobObject)
+          }
           mediaRecorder.ondataavailable = (event) => {
             chunks.push(event.data)
-            if (onDataCallback) {
-              onDataCallback(event.data)
-            }
           }
 
           audioCtx = AudioContext.getAudioContext()
@@ -88,13 +79,11 @@ class Microphone {
             sourceNode.connect(analyser)
           })
         })
-    } else {
-      alert('Your browser does not support audio recording')
     }
   }
 
   stopRecording() {
-    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+    if (mediaRecorder?.state !== 'inactive') {
       mediaRecorder.stop()
 
       stream.getAudioTracks().forEach((track) => {
@@ -105,22 +94,6 @@ class Microphone {
     }
   }
 
-  onStop() {
-
-    const blob = new Blob(chunks, { type: 'audio/webm;codecs=opus' })
-    chunks = []
-
-    const blobObject = {
-      blob,
-      startTime,
-      stopTime: Date.now(),
-      options: mediaOptions,
-      blobURL: window.URL.createObjectURL(blob)
-    }
-
-    if (onStopCallback) { onStopCallback(blobObject) }
-    if (onSaveCallback) { onSaveCallback(blobObject) }
-  }
 }
 
 export default Microphone
