@@ -1,8 +1,7 @@
 {
-  "extends": ["prettier", "eslint-plugin-react", "eslint-plugin-react"],
+  "extends": ["airbnb", "airbnb/hooks"],
   "rules": {
     "semi": ["warn", "never"],
-    "comma-dangle": ["warn", "never"],
     "quotes": ["warn", "single"],
     "indent": ["warn", 2]
   },
@@ -11,3 +10,4 @@
     "browser": true
   }
 }
+
