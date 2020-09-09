@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import AudioContext from './context'
 
@@ -10,7 +10,7 @@ const canvasHeight = 120
 
 function onDecodeError() { alert('error while decoding your file.')}
 
-function displayBuffer({buffer, context}) {
+function displayBuffer({ buffer, context }) {
   const leftChannel = buffer.getChannelData(0)
   context.save()
   context.fillStyle = '#222'
@@ -31,8 +31,7 @@ function displayBuffer({buffer, context}) {
   context.restore()
 }
 
-
-function loadMusic({url, context}) {
+function loadMusic({ url, context }) {
   const req = new XMLHttpRequest()
   req.open('GET', url, true)
   req.responseType = 'arraybuffer'
@@ -41,7 +40,7 @@ function loadMusic({url, context}) {
       if (req.status === 200) {
         audioContext.decodeAudioData(req.response, (buffer) => {
           currentBuffer = buffer
-          displayBuffer({buffer, context})
+          displayBuffer({ buffer, context })
         }, onDecodeError)
       }
       else {
@@ -52,20 +51,37 @@ function loadMusic({url, context}) {
   req.send()
 }
 
-
 const Analyser = ({ blobURL }) => {
   const myCanvas = useRef()
+  const myAudio = useRef()
+  const [ duration, setDuration] = useState(null)
+  const [ currentTime, setCurrentTime ] = useState()
 
   useEffect(() => {
-    if (!blobURL || !myCanvas?.current) return
+    if (!blobURL || !myCanvas || !myCanvas.current) return
     const context = myCanvas.current.getContext('2d')
+    setDuration(myCanvas.current.duration)
     loadMusic({ url: blobURL, context })
   }, [myCanvas, blobURL])
 
+  function handlePlay() {
+    myAudio.current.play()
+  }
+  function handleGetStartData() {
+    setCurrentTime(myAudio.current.currentTimeime)
+  }
+
+  function handlePause() {
+    myAudio.current.pause()
+  }
+
   return (
     <div>
+      <button onClick={handlePlay}>play</button>
+      <button onClick={handlePause}>pause</button>
+      <button onClick={handleGetStartData}>time: {currentTime}</button>
       <canvas ref={myCanvas} width={canvasWidth} height={canvasHeight} />
-      <audio key={blobURL} controls src={blobURL} preload="auto">Your browser does not support the <code>audio</code> element. </audio>
+      <audio ref={myAudio} key={blobURL} src={blobURL} preload="auto">Your browser does not support the <code>audio</code> element. </audio>
     </div>
   )
 }
