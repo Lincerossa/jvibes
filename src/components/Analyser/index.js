@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { FiPlayCircle, FiPauseCircle, FiStopCircle } from "react-icons/fi";
+import { FiPlayCircle, FiPauseCircle, FiStopCircle, FiClock } from "react-icons/fi";
 import AudioContext from '../../utils/context'
 import * as S from './styles'
 
@@ -82,17 +82,25 @@ const Analyser = ({ blobURL }) => {
 
     function handleGetCurrentTime() {
       setCurrentTime(myAudio.current.currentTime)
-      timer = requestAnimationFrame(handleGetCurrentTime)
+
+      if (myAudio.current.currentTime === myAudio.current.duration) {
+        handleStop()
+        return
+      }
+      if (isPlaying) {
+        timer = requestAnimationFrame(handleGetCurrentTime)
+      }
     }
 
     if (isPlaying) {
       myAudio.current.play()
       timer = requestAnimationFrame(handleGetCurrentTime)
     }
+
     if (!isPlaying && myAudio.current) myAudio.current.pause()
 
     return () => cancelAnimationFrame(timer)
-  }, [isPlaying, myAudio, setCurrentTime])
+  }, [isPlaying, myAudio, setCurrentTime, handleStop])
 
   return (
 
@@ -115,10 +123,12 @@ const Analyser = ({ blobURL }) => {
       { myAudio.current && currentTime > 0 && (
         <>
           <S.AudioTimer>
-            <div color="magenta">0</div>
-            <div color="magenta">{myAudio.current.duration}</div>
+            <FiClock />
+            {currentTime.toFixed(2)} 
+            /
+            {myAudio.current.duration.toFixed(2)} 
           </S.AudioTimer>
-          <S.AudioTracker percentage={currentTime / myAudio.current.duration} />
+          <S.AudioTracker percentage={currentTime/myAudio.current.duration} />
         </>
       )}
       <S.Audio ref={myAudio} key={blobURL} src={blobURL} preload="auto">

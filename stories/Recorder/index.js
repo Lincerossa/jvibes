@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Button, Space } from 'antd'
 import PropTypes from 'prop-types'
-import jvibes from 'jvibes'
+import jvibes, { Analyser } from 'jvibes'
 import * as S from './styles'
 
 const Recorder = () => {
@@ -18,14 +18,7 @@ const Recorder = () => {
       </Space>
     </S.CtaWrapper>
     {
-      tracks?.map(track => {
-        const { Analyser } = track
-        return (
-          <>
-            <Analyser key={track.blobURL} controls />
-          </>
-        )
-      })
+      tracks?.map((track) => <Analyser key={track.blobURL} blobURL={track.blobURL} />)
     }
    </S.Recorder>
   )

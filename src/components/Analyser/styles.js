@@ -27,24 +27,29 @@ export const HandlersWrapper = styled.div`
   right: 0;
   display: flex;
   justify-content: center;
-  
   font-size: 2rem;
 
   svg {
     color: white;
     &:hover{
       color: magenta;
+      cursor: pointer
     }
   }
 `
 
 export const AudioTimer = styled.div`
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
-  right: 0;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  color: white;
+
+  svg {
+    margin-right: .5rem;
+  }
 `
 
 export const Col = styled.div`
