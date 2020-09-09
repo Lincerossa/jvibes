@@ -8,7 +8,6 @@ import * as S from './styles'
 const Recorder = () => {
 
   const { tracks, isRecording, startRecording, stopRecording } = jvibes()
-
   return (
    <S.Recorder>
     <S.CtaWrapper>
@@ -18,7 +17,7 @@ const Recorder = () => {
       </Space>
     </S.CtaWrapper>
     {
-      tracks?.map(track => <S.Audio controls src={track.blobURL}>Your browser does not support the <code>audio</code> element. </S.Audio>)
+      tracks?.map(track => <S.Audio key={track.blobURL} controls src={track.blobURL} preload="auto">Your browser does not support the <code>audio</code> element. </S.Audio>)
     }
    </S.Recorder>
   )
