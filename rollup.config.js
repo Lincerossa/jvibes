@@ -6,7 +6,8 @@ const config = {
     dir: 'dist',
     format: 'esm'
   },
-  plugins: [babel({ babelHelpers: 'bundled' })]
+  plugins: [babel({ babelHelpers: 'bundled' })],
+  external: [ 'react' ]
 };
 
 export default config;
