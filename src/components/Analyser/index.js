@@ -44,7 +44,7 @@ function updateCanvas({ url, context, canvasDimesions }) {
   req.send()
 }
 
-const Analyser = ({ blobURL }) => {
+const Analyser = ({ blobURL, playing }) => {
   const myCanvas = useRef()
   const myAudio = useRef()
   const [currentTime, setCurrentTime] = useState(0)
@@ -61,6 +61,10 @@ const Analyser = ({ blobURL }) => {
     setCurrentTime(0)
   }, [myAudio, setPlaying])
 
+
+  useEffect(() => {
+    setPlaying(playing)
+  }, [playing])
   // canvas
   useMemo(() => {
     if (!myCanvas || !myCanvas.current || !blobURL || !canvasDimesions) return
@@ -72,7 +76,7 @@ const Analyser = ({ blobURL }) => {
     if (!myCanvas || !myCanvas.current || canvasDimesions) return
     setCanvasDimesions({
       width: myCanvas.current.getBoundingClientRect().width,
-      height: 400,
+      height: 200,
     })
   }, [myCanvas, canvasDimesions])
 
@@ -128,7 +132,7 @@ const Analyser = ({ blobURL }) => {
             /
             {myAudio.current.duration.toFixed(2)} 
           </S.AudioTimer>
-          <S.AudioTracker percentage={currentTime/myAudio.current.duration} />
+          <S.AudioTracker percentage={currentTime / myAudio.current.duration} />
         </>
       )}
       <S.Audio ref={myAudio} key={blobURL} src={blobURL} preload="auto">
