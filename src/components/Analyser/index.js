@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
-import { Tag } from 'antd'
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import AudioContext from './context'
-import * as S from '../styles'
+import { FiPlayCircle, FiPauseCircle, FiStopCircle } from "react-icons/fi";
+import AudioContext from '../../utils/context'
+import * as S from './styles'
 
 const audioContext = AudioContext.getAudioContext()
 
@@ -44,29 +44,25 @@ function updateCanvas({ url, context, canvasDimesions }) {
   req.send()
 }
 
-const Analyser = useMemo({ blobURL }) => {
+const Analyser = ({ blobURL }) => {
   const myCanvas = useRef()
   const myAudio = useRef()
   const [currentTime, setCurrentTime] = useState(0)
   const [isPlaying, setPlaying] = useState(null)
   const [canvasDimesions, setCanvasDimesions] = useState(null)
 
-  const handlePause = useCallback(() => {
-    setPlaying(false)
+  const handleTogglePlayer = useCallback(() => {
+    setPlaying((wasPlaying) => !wasPlaying)
   }, [setPlaying])
 
   const handleStop = useCallback(() => {
     myAudio.current.currentTime = 0
-    handlePause()
+    setPlaying(false)
     setCurrentTime(0)
-  }, [myAudio, handlePause])
-
-  const handlePlay = useCallback(() => {
-    setPlaying(true)
-  }, [setPlaying])
+  }, [myAudio, setPlaying])
 
   // canvas
-  useEffect(() => {
+  useMemo(() => {
     if (!myCanvas || !myCanvas.current || !blobURL || !canvasDimesions) return
     const context = myCanvas.current.getContext('2d')
     updateCanvas({ url: blobURL, context, canvasDimesions })
@@ -99,29 +95,42 @@ const Analyser = useMemo({ blobURL }) => {
   }, [isPlaying, myAudio, setCurrentTime])
 
   return (
-    <div>
-      <button onClick={handlePlay}>play</button>
-      <button onClick={handlePause}>pause</button>
-      <button onClick={handleStop}>stop</button>
 
-      <S.CanvasWrapper>
-        <S.Canvas
-          ref={myCanvas}
-          width={canvasDimesions && canvasDimesions.width}
-          height={canvasDimesions && canvasDimesions.height}
-        />
-        <S.AudioTimer>
-          <Tag color="magenta">0</Tag>
-          {myAudio && myAudio.current && <Tag color="magenta">{myAudio.current.duration}</Tag>}
-        </S.AudioTimer>
-        {myAudio && myAudio.current && <S.AudioTracker percentage={ currentTime / myAudio.current.duration} />}
-      </S.CanvasWrapper>
-      <S.Audio ref={myAudio} key={blobURL} src={blobURL} preload="auto">Your browser does not support the <code>audio</code> element. </S.Audio>
-    </div>
+    <S.Analyser>
+      <S.Canvas
+        ref={myCanvas}
+        width={canvasDimesions && canvasDimesions.width}
+        height={canvasDimesions && canvasDimesions.height}
+      />
+      <S.HandlersWrapper>
+        <S.IconWrapper onClick={handleStop} marginLeft><FiStopCircle /></S.IconWrapper>
+        <S.IconWrapper onClick={handleTogglePlayer}>
+          {
+            isPlaying
+              ? <FiPauseCircle />
+              : <FiPlayCircle />
+          }
+        </S.IconWrapper>
+      </S.HandlersWrapper>
+      { myAudio.current && currentTime > 0 && (
+        <>
+          <S.AudioTimer>
+            <div color="magenta">0</div>
+            <div color="magenta">{myAudio.current.duration}</div>
+          </S.AudioTimer>
+          <S.AudioTracker percentage={currentTime / myAudio.current.duration} />
+        </>
+      )}
+      <S.Audio ref={myAudio} key={blobURL} src={blobURL} preload="auto">
+        Your browser does not support the
+        <code>audio</code>
+        element.
+      </S.Audio>
+    </S.Analyser>
   )
 }
 
 Analyser.propTypes = {}
 Analyser.defaultProps = {}
 
-export default Analyser
+export default React.memo(Analyser)

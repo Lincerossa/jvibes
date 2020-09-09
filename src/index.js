@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Microphone from './utils/Microphone'
-import Analyser from './utils/Analyser'
+
+export { default as Analyser } from './components/Analyser/index'
 
 export default () => {
   const [tracks, setTracks] = useState([])
@@ -25,10 +26,7 @@ export default () => {
   }
 
   return {
-    tracks: tracks.map((track) => ({
-      ...track,
-      Analyser: (props) => <Analyser {...track} {...props} />
-    })),
+    tracks,
     isRecording,
     startRecording,
     stopRecording,
