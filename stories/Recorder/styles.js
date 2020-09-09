@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-
 export const Recorder = styled.div``
 export const Audio = styled.audio`
   display: block;

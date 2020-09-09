@@ -8,13 +8,12 @@ export default {
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-};
+}
 
-const Template = (args) => <Recorder {...args} />;
+const Template = (args) => <Recorder {...args} />
 
-export const Default = Template.bind({});
+export const Default = Template.bind({})
 Default.args = {
   primary: true,
   label: 'Button',
-};
-
+}

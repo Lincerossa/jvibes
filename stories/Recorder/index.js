@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Space } from 'antd'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import jvibes from 'jvibes'
 import * as S from './styles'
-
 
 const Recorder = () => {
 
   const { tracks, isRecording, startRecording, stopRecording } = jvibes()
+
+  
   return (
    <S.Recorder>
     <S.CtaWrapper>
@@ -17,7 +18,14 @@ const Recorder = () => {
       </Space>
     </S.CtaWrapper>
     {
-      tracks?.map(track => <S.Audio key={track.blobURL} controls src={track.blobURL} preload="auto">Your browser does not support the <code>audio</code> element. </S.Audio>)
+      tracks?.map(track => {
+        const { Analyser } = track
+        return (
+          <>
+            <Analyser key={track.blobURL} controls />
+          </>
+        )
+      })
     }
    </S.Recorder>
   )
