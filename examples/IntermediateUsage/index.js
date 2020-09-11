@@ -1,11 +1,9 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Button, Space } from 'antd'
-import { FiBatteryCharging } from "react-icons/fi";
-import PropTypes from 'prop-types'
 import jvibes, { Analyser } from 'jvibes'
 import * as S from './styles'
 
-const Recorder = () => {
+export default () => {
   const { tracks, isRecording, startRecording, stopRecording } = jvibes()
   const [ playingAll, setPlayAll] = useState(false)
 
@@ -26,14 +24,9 @@ const Recorder = () => {
       </S.PlayAll>
     </S.CtaWrapper>
     {
-      tracks?.map((track) => <Space style={{width: "100%"}} direction="vertical"><Analyser key={track.blobURL} blobURL={track.blobURL} playing={playingAll} /></Space>)
+      tracks?.map((track) => <Space key={track.blobURL} style={{width: "100%"}} direction="vertical"><Analyser  blobURL={track.blobURL} playing={playingAll} /></Space>)
     }
 
    </S.Recorder>
   )
 }
-
-Recorder.propTypes = {}
-Recorder.defaultProps = {}
-
-export default Recorder
