@@ -87,7 +87,7 @@ export default () => {
     }
   }, [mediaRecorder])
 
-  function paintCanvas({ url, context, canvasDimesions }) {
+  const paintCanvas = useCallback(({ url, context, canvasDimesions }) => {
     const { width, height } = canvasDimesions
     const req = new XMLHttpRequest()
     req.open('GET', url, true)
@@ -116,13 +116,10 @@ export default () => {
             context.restore()
           }, () => console.log('error while decoding your file.'))
         }
-        else {
-          alert('error during the load.Wrong url or cross origin issue')
-        }
       }
     }
     req.send()
-  }
+  }, [])
 
   return {
     paintCanvas,

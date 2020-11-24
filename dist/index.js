@@ -168,8 +168,7 @@ var index = (function () {
       setRecording(null);
     }
   }, [mediaRecorder]);
-
-  function paintCanvas(_ref) {
+  var paintCanvas = useCallback(function (_ref) {
     var url = _ref.url,
         context = _ref.context,
         canvasDimesions = _ref.canvasDimesions;
@@ -206,15 +205,12 @@ var index = (function () {
           }, function () {
             return console.log('error while decoding your file.');
           });
-        } else {
-          alert('error during the load.Wrong url or cross origin issue');
         }
       }
     };
 
     req.send();
-  }
-
+  }, []);
   return {
     paintCanvas: paintCanvas,
     startRecording: startRecording,
