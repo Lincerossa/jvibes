@@ -49,18 +49,18 @@
     ]
   },
   "dependencies": {
+    "jvibes": "file:.yalc/jvibes",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-icons": "^3.11.0",
-    "styled-components": "^5.1.1"
+    "react-dom": "^16.13.1"
   },
   "peerDependencies": {
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "styled-components": "^5.1.1"
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
+    "react-icons": "^3.11.0",
+    "styled-components": "^5.1.1",
     "@babel/plugin-proposal-optional-chaining": "^7.11.0",
     "@babel/plugin-syntax-class-properties": "^7.10.4",
     "@babel/preset-env": "^7.11.0",
