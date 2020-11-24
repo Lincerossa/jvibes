@@ -1,28 +1,20 @@
-import React, { useRef, useMemo, useCallback, useState, useEffect } from 'react'
+import React, { useRef, useCallback, useState, useEffect } from 'react'
 import { Button, Space } from 'antd'
 import { FiPlayCircle, FiPauseCircle, FiStopCircle, FiClock } from 'react-icons/fi'
 import jvibes from 'jvibes'
 import * as S from './styles'
 
-const Analyser = ({ blobURL }) => {
-  const { paintCanvas } = jvibes()
-  const myCanvas = useRef()
-  const myAudio = useRef()
+const Analyser = ({ blobURL, paintCanvas }) => {
   const [currentTime, setCurrentTime] = useState(0)
   const [isPlaying, setPlaying] = useState(null)
   const [canvasDimesions, setCanvasDimesions] = useState(null)
+  const myCanvas = useRef()
+  const myAudio = useRef()
 
   const handleTogglePlayer = useCallback(() => {
-    setPlaying((prevPlayingState) => !prevPlayingState)
+    setPlaying((e) => !e)
   }, [setPlaying])
 
-  const handleStop = useCallback(() => {
-    myAudio.current.currentTime = 0
-    setPlaying(false)
-    setCurrentTime(0)
-  }, [myAudio, setPlaying, setCurrentTime])
-
-  // canvas
   useEffect(() => {
     if (!myCanvas || !myCanvas.current || !blobURL || !canvasDimesions || !paintCanvas) return
     const context = myCanvas.current.getContext('2d')
@@ -37,30 +29,32 @@ const Analyser = ({ blobURL }) => {
     })
   }, [myCanvas, canvasDimesions])
 
+  const handleStop = useCallback(() => {
+    myAudio.current.currentTime = 0
+    setPlaying(false)
+    setCurrentTime(0)
+  }, [myAudio, setPlaying, setCurrentTime])
+
   useEffect(() => {
     let timer = null
 
     function handleGetCurrentTime() {
       setCurrentTime(myAudio.current.currentTime)
-
-      if (myAudio.current.currentTime === myAudio.current.duration) {
-        handleStop()
-        return
-      }
-      if (isPlaying) {
-        timer = requestAnimationFrame(handleGetCurrentTime)
-      }
-    }
-
-    if (isPlaying) {
-      myAudio.current.play()
+      if (myAudio.current.currentTime === myAudio.current.duration) handleStop()
       timer = requestAnimationFrame(handleGetCurrentTime)
     }
 
-    if (!isPlaying && myAudio.current) myAudio.current.pause()
+    if (isPlaying) timer = requestAnimationFrame(handleGetCurrentTime)
 
     return () => cancelAnimationFrame(timer)
   }, [isPlaying, myAudio, setCurrentTime, handleStop])
+
+  useEffect(() => {
+    if (isPlaying) myAudio.current.play()
+    if (!isPlaying) myAudio.current.pause()
+  }, [isPlaying, myAudio])
+
+  const percentage = currentTime / (myAudio && myAudio.current && myAudio.current.duration)
 
   return (
     <S.Analyser>
@@ -75,7 +69,7 @@ const Analyser = ({ blobURL }) => {
           { isPlaying ? <FiPauseCircle /> : <FiPlayCircle /> }
         </S.IconWrapper>
       </S.HandlersWrapper>
-      { myAudio.current && currentTime > 0 && (
+      { myAudio.current && myAudio.current.duration > 0 && (
         <>
           <S.AudioTimer>
             <FiClock />
@@ -98,7 +92,7 @@ const Analyser = ({ blobURL }) => {
 const MemoizedAnalyser = React.memo(Analyser)
 
 export default () => {
-  const { tracks, isRecording, startRecording, stopRecording } = jvibes()
+  const { tracks, isRecording, startRecording, stopRecording, paintCanvas } = jvibes()
   return (
     <S.Recorder>
       <S.CtaWrapper>
@@ -108,7 +102,7 @@ export default () => {
         </Space>
       </S.CtaWrapper>
       {
-        tracks && tracks.map((track) => <MemoizedAnalyser key={track.blobURL} blobURL={track.blobURL} />)
+        tracks && tracks.map(({ blobURL }) => <MemoizedAnalyser key={blobURL} blobURL={blobURL} paintCanvas={paintCanvas} />)
       }
     </S.Recorder>
   )

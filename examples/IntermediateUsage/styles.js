@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Recorder = styled.div``
+
 export const Audio = styled.audio`
   display: block;
   margin-bottom: .5rem;
@@ -19,7 +20,6 @@ export const Canvas = styled.canvas`
   border: 1px solid violet;
   width: 100%;
 `
-
 
 export const Analyser = styled.div`
   width: 100%;
@@ -59,6 +59,7 @@ export const AudioTimer = styled.div`
   align-items: center;
   padding: 1rem;
   color: white;
+  border: 1px solid magenta;
 
   svg {
     margin-right: .5rem;
