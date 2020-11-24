@@ -54,8 +54,6 @@ const Analyser = ({ blobURL, paintCanvas }) => {
     if (!isPlaying) myAudio.current.pause()
   }, [isPlaying, myAudio])
 
-  const percentage = currentTime / (myAudio && myAudio.current && myAudio.current.duration)
-
   return (
     <S.Analyser>
       <S.Canvas
