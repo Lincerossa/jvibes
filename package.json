@@ -1,7 +1,6 @@
 {
   "name": "jvibes",
-  "version": "1.5.1",
-  "homepage": ".",
+  "version": "1.6.0",
   "main": "dist",
   "author": "marcello luatti",
   "scripts": {
