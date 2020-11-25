@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/lincerossa/jvibes/compare/v1.5.0...v1.5.1) (2020-11-25)
+
+
+### Bug Fixes
+
+* npm-publish.yml ([ab21494](https://github.com/lincerossa/jvibes/commit/ab21494c744dbf83ea3a91f83491f449a9612ab6))
+
 # [1.5.0](https://github.com/lincerossa/jvibes/compare/v1.4.0...v1.5.0) (2020-11-25)
 
 
