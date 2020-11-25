@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Lincerossa/jvibes/compare/v1.1.0...v1.2.0) (2020-11-25)
+
+
+### Features
+
+* 🤖 github actions on push tags it should fire a new publish on npm ([a96ccc2](https://github.com/Lincerossa/jvibes/commit/a96ccc23217a8e05d48793ac5a84d331cb26d3fb))
+
 # [1.1.0](https://github.com/Lincerossa/jvibes/compare/v1.0.0...v1.1.0) (2020-11-25)
 
 
