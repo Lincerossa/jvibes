@@ -1,6 +1,6 @@
 {
   "name": "jvibes",
-  "version": "0.0.1",
+  "version": "1.2.0",
   "homepage": ".",
   "main": "dist",
   "author": "marcello luatti",
@@ -12,6 +12,10 @@
     "build:netlify": "npm run build && npm run publish:yalc && build-storybook",
     "release": "semantic-release --no-ci"
   },
+  "files": [
+    "dist",
+    "src"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged --pattern \"**/*.*(js)\""
