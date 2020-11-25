@@ -17,7 +17,6 @@ export default () => {
     {
       tracks?.map((track) => <Space style={{width: "100%"}} direction="vertical" key={track.blobURL}><audio preload="auto" controls type="audio/ogg" src={track.blobURL} /></Space>)
     }
-
    </S.Recorder>
   )
 }

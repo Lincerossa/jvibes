@@ -1,0 +1,27 @@
+{
+  "name": "examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "react-icons": "^3.11.0",
+    "styled-components": "^5.1.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "jvibes": "^1.7.0",
+    "antd": "^4.5.3"
+  },
+  "alias": {
+    "react": "../node_modules/react",
+    "react-dom": "../node_modules/react-dom"
+  },
+  "license": "ISC"
+}
