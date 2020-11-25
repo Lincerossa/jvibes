@@ -17,7 +17,6 @@ export const PlayAll = styled.div`
 `
 
 export const Canvas = styled.canvas`
-  border: 1px solid violet;
   width: 100%;
 `
 
@@ -59,7 +58,6 @@ export const AudioTimer = styled.div`
   align-items: center;
   padding: 1rem;
   color: white;
-  border: 1px solid magenta;
 
   svg {
     margin-right: .5rem;
