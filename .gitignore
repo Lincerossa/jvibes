@@ -82,7 +82,6 @@ build
 # nuxt.js build output
 .nuxt
 
-yalc.lock
 # vuepress build output
 .vuepress/dist
 
@@ -95,7 +94,6 @@ yalc.lock
 # DynamoDB Local files
 .dynamodb/
 
-.yalc
 dist
 storybook-static
 

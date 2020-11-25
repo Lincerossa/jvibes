@@ -5,7 +5,6 @@ github repo
 ```bash
   npm install
   npm run build
-  npm run publish:yalc
   npm run storybook
 ```
 
