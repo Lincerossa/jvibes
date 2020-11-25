@@ -96,6 +96,7 @@ yalc.lock
 .dynamodb/
 
 .yalc
+dist
 storybook-static
 
 package-lock.json
