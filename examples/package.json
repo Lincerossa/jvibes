@@ -19,9 +19,5 @@
     "jvibes": "^1.7.0",
     "antd": "^4.5.3"
   },
-  "alias": {
-    "react": "../node_modules/react",
-    "react-dom": "../node_modules/react-dom"
-  },
   "license": "ISC"
 }
