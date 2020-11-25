@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Lincerossa/jvibes/compare/v1.0.0...v1.1.0) (2020-11-25)
+
+
+### Features
+
+* added author + fired release using sematic version ([0a47cdc](https://github.com/Lincerossa/jvibes/commit/0a47cdc2b0c8f0f6cd5a419c0863f4c930bbac3a))
+
 # 1.0.0 (2020-08-11)
 
 
