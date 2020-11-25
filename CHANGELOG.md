@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/lincerossa/jvibes/compare/v1.7.0...v1.8.0) (2020-11-25)
+
+
+### Features
+
+* 🚀 conceptual refactor: parcel.js + removed all [@babel](https://github.com/babel) unused plugins + scripts updated = absolutely easier project folder structure ([17c0860](https://github.com/lincerossa/jvibes/commit/17c0860ededfcfd0b91239ac4cb31e4b8142bcca))
+
 # [1.7.0](https://github.com/lincerossa/jvibes/compare/v1.6.0...v1.7.0) (2020-11-25)
 
 
