@@ -4,10 +4,9 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - 'v*' # Push events to matching v*
-
+  release:
+    types: # This configuration does not affect the page_build event above
+      - created
 
 jobs:
   build:
