@@ -1,7 +1,7 @@
 {
   "name": "jvibes",
-  "version": "1.6.0",
-  "main": "dist",
+  "version": "1.7.0",
+  "main": "dist/index.js",
   "author": "marcello luatti",
   "scripts": {
     "start": "start-storybook -p 6006",
@@ -9,11 +9,7 @@
     "build": "rollup -c",
     "build:netlify": "npm run build && build-storybook",
     "release": "semantic-release --no-ci"
-  },
-  "files": [
-    "dist",
-    "src"
-  ],
+  },  
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged --pattern \"**/*.*(js)\""
