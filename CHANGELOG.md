@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/lincerossa/jvibes/compare/v1.4.0...v1.5.0) (2020-11-25)
+
+
+### Features
+
+* new release using semantic versioning ([07a5fa9](https://github.com/lincerossa/jvibes/commit/07a5fa95926984c290c1a87d6ee4da34e3cca0e3))
+
 # [1.4.0](https://github.com/lincerossa/jvibes/compare/v1.3.0...v1.4.0) (2020-11-25)
 
 
