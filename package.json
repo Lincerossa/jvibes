@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "homepage": ".",
   "main": "dist",
+  "author": "marcello luatti",
   "scripts": {
     "start": "start-storybook -p 6006",
     "dev": "npm run build && npm run publish:yalc && npm i && npm start",
