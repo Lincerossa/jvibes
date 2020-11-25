@@ -1,34 +1,131 @@
-import { useState, useEffect, useCallback } from 'react'
-import Microphone from './utils/Microphone'
+import { useCallback, useState, useRef } from 'react'
 
-export { default as Analyser } from './components/Analyser/index'
+navigator.getUserMedia = (navigator.getUserMedia
+                          || navigator.webkitGetUserMedia
+                          || navigator.mozGetUserMedia
+                          || navigator.msGetUserMedia)
+
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
 
 export default () => {
   const [tracks, setTracks] = useState([])
-  const [isRecording, setIsRecording] = useState(null)
-  const [MicrophoneIstance, setMicrophoneIstance] = useState(null)
+  const [isRecording, setRecording] = useState(null)
+  const [analyser, setAnalyser] = useState(audioCtx.createAnalyser())
+  const mediaRecorder = useRef(null)
+  const stream = useRef(null)
 
-  const onStop = useCallback((track) => {
-    setTracks((e) => [...e, track])
-    setIsRecording(false)
-  }, [setTracks, setIsRecording])
+  const startRecording = useCallback(() => {
+    const startTime = Date.now()
 
-  useEffect(() => {
-    const Instance = new Microphone({ onStart: () => setIsRecording(true), onStop })
-    setMicrophoneIstance(Instance)
-  }, [onStop, setIsRecording])
+    if (mediaRecorder && mediaRecorder.current) {
+      if (audioCtx && (audioCtx.state === 'suspended' || audioCtx.state !== 'running')) audioCtx.resume()
+      if (audioCtx && mediaRecorder.current.state === 'inactive') {
+        mediaRecorder.current.start(10)
+        const source = audioCtx.createMediaStreamSource(stream.current)
+        source.connect(analyser)
+        setRecording(true)
+      }
+      if (mediaRecorder.current.state === 'paused') mediaRecorder.current.resume()
+    }
 
-  function startRecording() {
-    MicrophoneIstance.startRecording()
-  }
-  function stopRecording() {
-    MicrophoneIstance.stopRecording()
-  }
+    if (navigator.mediaDevices) {
+      navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: false,
+          autoGainControl: false,
+          noiseSuppression: false,
+        },
+        video: false,
+      })
+        .then((str) => {
+          let chunks = []
+          stream.current = str
+          if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+            mediaRecorder.current = new MediaRecorder(str)
+          } else {
+            mediaRecorder.current = new MediaRecorder(str)
+          }
+
+          setRecording(true)
+          mediaRecorder.current.onstop = () => {
+            const blob = new Blob(chunks, { type: 'audio/webm;codecs=opus' })
+            chunks = []
+
+            const blobObject = {
+              blob,
+              startTime,
+              stopTime: Date.now(),
+              blobURL: window.URL.createObjectURL(blob),
+            }
+
+            setTracks((e) => [...e, blobObject])
+            setRecording(false)
+          }
+          mediaRecorder.current.ondataavailable = (event) => {
+            chunks.push(event.data)
+          }
+
+          audioCtx.resume().then(() => {
+            mediaRecorder.current.start(10)
+            const sourceNode = audioCtx.createMediaStreamSource(stream.current)
+            sourceNode.connect(analyser)
+          })
+        })
+    }
+  }, [mediaRecorder, analyser, setRecording])
+
+  const stopRecording = useCallback(() => {
+    if (mediaRecorder && mediaRecorder.current && mediaRecorder.current.state !== 'inactive') {
+      mediaRecorder.current.stop()
+
+      stream.current.getAudioTracks().forEach((track) => {
+        track.stop()
+      })
+      mediaRecorder.current = null
+      setAnalyser(audioCtx.createAnalyser())
+      setRecording(null)
+    }
+  }, [mediaRecorder])
+
+  const paintCanvas = useCallback(({ url, context, canvasDimesions }) => {
+    const { width, height } = canvasDimesions
+    const req = new XMLHttpRequest()
+    req.open('GET', url, true)
+    req.responseType = 'arraybuffer'
+    req.onreadystatechange = () => {
+      if (req.readyState === 4) {
+        if (req.status === 200) {
+          audioCtx.decodeAudioData(req.response, (buffer) => {
+            const leftChannel = buffer.getChannelData(0)
+            context.save()
+            context.fillStyle = '#222'
+            context.fillRect(0, 0, width, height)
+            context.strokeStyle = '#121'
+            context.globalCompositeOperation = 'lighter'
+            context.translate(0, height / 2)
+            context.globalAlpha = 0.06
+            for (let i = 0; i < leftChannel.length; i++) {
+              // on which line do we get ?
+              const x = Math.floor((width * i) / leftChannel.length)
+              const y = (leftChannel[i] * height) / 2
+              context.beginPath()
+              context.moveTo(x, 0)
+              context.lineTo(x + 1, y)
+              context.stroke()
+            }
+            context.restore()
+          }, () => console.log('error while decoding your file.'))
+        }
+      }
+    }
+    req.send()
+  }, [])
 
   return {
-    tracks,
-    isRecording,
+    paintCanvas,
     startRecording,
     stopRecording,
+    isRecording,
+    tracks,
   }
 }
