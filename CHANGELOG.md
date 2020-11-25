@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/lincerossa/jvibes/compare/v1.3.0...v1.4.0) (2020-11-25)
+
+
+### Features
+
+* 🔥 removed any yalc things ([8f79e67](https://github.com/lincerossa/jvibes/commit/8f79e679881b40706c750faabfbb908f4ef6209f))
+
 # [1.3.0](https://github.com/lincerossa/jvibes/compare/v1.2.0...v1.3.0) (2020-11-25)
 
 
