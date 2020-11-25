@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/lincerossa/jvibes/compare/v1.5.1...v1.6.0) (2020-11-25)
+
+
+### Features
+
+* force a new tag release ([53ed9b5](https://github.com/lincerossa/jvibes/commit/53ed9b5e6273b76558cb4889fab657e8d7403fe2))
+
 ## [1.5.1](https://github.com/lincerossa/jvibes/compare/v1.5.0...v1.5.1) (2020-11-25)
 
 
