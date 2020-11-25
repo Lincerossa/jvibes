@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/lincerossa/jvibes/compare/v1.6.0...v1.7.0) (2020-11-25)
+
+
+### Features
+
+* ⬆️ 1.7.0 ([dfbe896](https://github.com/lincerossa/jvibes/commit/dfbe896b6ca48ded8ad814d8ce589990b22f7dd5))
+
 # [1.6.0](https://github.com/lincerossa/jvibes/compare/v1.5.1...v1.6.0) (2020-11-25)
 
 
