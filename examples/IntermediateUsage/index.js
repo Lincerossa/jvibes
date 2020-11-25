@@ -1,5 +1,6 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react'
-import { Button, Space } from 'antd'
+import { Button, Space, message } from 'antd'
+
 import { FiPlayCircle, FiPauseCircle, FiStopCircle, FiClock } from 'react-icons/fi'
 import jvibes from 'jvibes'
 import * as S from './styles'
@@ -87,10 +88,13 @@ const Analyser = ({ blobURL, paintCanvas }) => {
   )
 }
 
-const MemoizedAnalyser = React.memo(Analyser)
-
 export default () => {
   const { tracks, isRecording, startRecording, stopRecording, paintCanvas } = jvibes()
+  useEffect(() => {
+    if (tracks && tracks.length) {
+      message.success("track added")
+    }
+  }, [tracks])
   return (
     <S.Recorder>
       <S.CtaWrapper>
@@ -100,7 +104,7 @@ export default () => {
         </Space>
       </S.CtaWrapper>
       {
-        tracks && tracks.map(({ blobURL }) => <MemoizedAnalyser key={blobURL} blobURL={blobURL} paintCanvas={paintCanvas} />)
+        tracks && tracks.map(({ blobURL }) => <Analyser key={blobURL} blobURL={blobURL} paintCanvas={paintCanvas} />)
       }
     </S.Recorder>
   )

@@ -4,12 +4,9 @@
   "main": "dist/index.js",
   "author": "marcello luatti",
   "scripts": {
-    "start": "start-storybook -p 6006",
-    "dev": "npm run build && npm i && npm start",
-    "build": "rollup -c",
-    "build:netlify": "npm run build && build-storybook",
+    "build": "parcel build src/index.js --no-source-maps",
     "release": "semantic-release --no-ci"
-  },  
+  },
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged --pattern \"**/*.*(js)\""
@@ -20,9 +17,6 @@
       "eslint",
       "npm run pretty-quick"
     ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
@@ -60,22 +54,12 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.1",
-    "@babel/plugin-proposal-optional-chaining": "^7.11.0",
-    "@babel/plugin-syntax-class-properties": "^7.10.4",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/preset-react": "^7.10.4",
-    "@rollup/plugin-babel": "^5.1.0",
+    "@babel/core": "^7.12.9",
+    "@babel/preset-react": "^7.12.7",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/commit-analyzer": "^8.0.1",
     "@semantic-release/git": "^9.0.0",
     "@semantic-release/release-notes-generator": "^9.0.1",
-    "@storybook/addon-actions": "^6.0.1",
-    "@storybook/addon-essentials": "^6.0.1",
-    "@storybook/addon-links": "^6.0.1",
-    "@storybook/react": "^6.0.1",
-    "antd": "^4.5.3",
-    "babel-plugin-styled-components": "^1.11.1",
     "eslint": "^7.2.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
@@ -85,12 +69,10 @@
     "eslint-plugin-react-hooks": "^4.0.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
+    "parcel-bundler": "^1.12.4",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
     "react-icons": "^3.11.0",
-    "react-is": "^16.13.1",
-    "rollup": "^2.23.1",
-    "semantic-release": "^17.1.1",
-    "styled-components": "^5.1.1"
+    "semantic-release": "^17.1.1"
   }
 }
