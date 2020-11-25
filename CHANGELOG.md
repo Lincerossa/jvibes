@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/lincerossa/jvibes/compare/v1.2.0...v1.3.0) (2020-11-25)
+
+
+### Features
+
+* added repository key in package.json + added a new tag release using semantic versioning ([221515f](https://github.com/lincerossa/jvibes/commit/221515f08ad95bc4a0024cf0b5b71376e7f65832))
+
 # [1.2.0](https://github.com/Lincerossa/jvibes/compare/v1.1.0...v1.2.0) (2020-11-25)
 
 
