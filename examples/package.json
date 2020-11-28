@@ -1,12 +1,12 @@
 {
   "name": "examples",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "jvibes examples",
+  "main": "./src/index.js",
   "scripts": {
     "start": "parcel ./src/index.html --open --no-cache",
-    "build": "parcel build ./src/index.html --no-source-maps --no-cache",
-    "tabularasa": "rm -rf package-lock.json && rm -rf node_modules/"
+    "build": "parcel build ./src/index.html --no-source-maps",
+    "clean": "rm -rf package-lock.json && rm -rf node_modules/ && rm -rd dist/"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -15,14 +15,10 @@
   "dependencies": {
     "antd": "^4.8.5",
     "react-icons": "^4.1.0",
-    "react-is": "^17.0.1",
     "styled-components": "^5.2.1",
+    "jvibes": "^1.9.0",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "jvibes": "^1.9.0"
+    "react-dom": "^17.0.1"
   },
-  "alias": {
-    "jvibes": "../src"
-  },
-  "license": "ISC"
+  "license": "MIT"
 }

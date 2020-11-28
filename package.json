@@ -2,11 +2,12 @@
   "name": "jvibes",
   "version": "1.9.0",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "author": "marcello luatti",
   "scripts": {
     "build": "parcel build src/index.js --no-source-maps --no-cache",
-    "release": "semantic-release --no-ci",
-    "tabularasa": "rm -rf package-lock.json && rm -rf node_modules/"
+    "clean": "rm -rf package-lock.json && rm -rf node_modules/ && rm -rf dist",
+    "release": "semantic-release --no-ci"
   },
   "husky": {
     "hooks": {
@@ -47,12 +48,10 @@
     ]
   },
   "dependencies": {
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react": "^17.0.1"
   },
   "peerDependencies": {
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react": ">=17.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -73,7 +72,6 @@
     "parcel-bundler": "^1.12.4",
     "prettier": "^2.2.0",
     "pretty-quick": "^3.1.0",
-    "react-icons": "^4.1.0",
     "semantic-release": "^17.3.0"
   }
 }
