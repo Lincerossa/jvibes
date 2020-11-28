@@ -16,9 +16,11 @@
     "antd": "^4.8.5",
     "react-icons": "^4.1.0",
     "styled-components": "^5.2.1",
-    "jvibes": "^1.9.0",
-    "react": "^17.0.1",
     "react-dom": "^17.0.1"
+  },
+  "alias": {
+    "jvibes": "../src",
+    "react": "../node_modules/react"
   },
   "license": "MIT"
 }
