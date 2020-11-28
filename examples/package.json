@@ -4,7 +4,7 @@
   "description": "jvibes examples",
   "main": "./src/index.js",
   "scripts": {
-    "start": "parcel ./src/index.html --open --no-cache",
+    "start": "parcel ./src/index.html --open",
     "build": "parcel build ./src/index.html --no-source-maps",
     "clean": "rm -rf package-lock.json && rm -rf node_modules/ && rm -rd dist/"
   },
