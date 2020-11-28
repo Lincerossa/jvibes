@@ -1,23 +1,26 @@
 {
   "name": "examples",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "jvibes examples",
+  "main": "./src/index.js",
   "scripts": {
-    "start": "parcel index.html --open",
-    "build": "parcel build index.html --no-source-maps"
+    "start": "parcel ./src/index.html --open",
+    "build": "parcel build ./src/index.html --no-source-maps",
+    "clean": "rm -rf package-lock.json && rm -rf node_modules/ && rm -rf dist/"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "parcel-bundler": "^1.12.4"
   },
   "dependencies": {
-    "react-icons": "^3.11.0",
-    "styled-components": "^5.1.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "jvibes": "^1.7.0",
-    "antd": "^4.5.3"
+    "antd": "^4.8.5",
+    "react-icons": "^4.1.0",
+    "styled-components": "^5.2.1",
+    "react-dom": "^17.0.1"
   },
-  "license": "ISC"
+  "alias": {
+    "jvibes": "../src",
+    "react": "../node_modules/react"
+  },
+  "license": "MIT"
 }

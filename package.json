@@ -2,9 +2,11 @@
   "name": "jvibes",
   "version": "1.9.0",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "author": "marcello luatti",
   "scripts": {
-    "build": "parcel build src/index.js --no-source-maps",
+    "build": "parcel build src/index.js --no-source-maps --no-cache",
+    "clean": "rm -rf package-lock.json && rm -rf node_modules/ && rm -rf dist",
     "release": "semantic-release --no-ci"
   },
   "husky": {
@@ -46,12 +48,10 @@
     ]
   },
   "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "^17.0.1"
   },
   "peerDependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": ">=17.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -60,19 +60,18 @@
     "@semantic-release/commit-analyzer": "^8.0.1",
     "@semantic-release/git": "^9.0.0",
     "@semantic-release/release-notes-generator": "^9.0.1",
-    "eslint": "^7.2.0",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-react": "^7.20.6",
-    "eslint-plugin-react-hooks": "^4.0.0",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.2.11",
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.5.2",
     "parcel-bundler": "^1.12.4",
-    "prettier": "^2.0.5",
-    "pretty-quick": "^2.0.1",
-    "react-icons": "^3.11.0",
-    "semantic-release": "^17.1.1"
+    "prettier": "^2.2.0",
+    "pretty-quick": "^3.1.0",
+    "semantic-release": "^17.3.0"
   }
 }
